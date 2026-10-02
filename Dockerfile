@@ -1,9 +1,9 @@
 FROM python:3.11-slim
 
-WORKDIR /app
+WORKDIR /
 
 RUN pip install --no-cache-dir runpod
 
-COPY src/handler.py /app/handler.py
+COPY handler.py /handler.py
 
-CMD ["python", "-u", "/app/handler.py"]
+CMD ["python", "-u", "/handler.py"]
