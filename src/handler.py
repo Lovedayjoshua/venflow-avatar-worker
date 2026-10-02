@@ -171,8 +171,6 @@ def run_musetalk(video_path: Path, audio_path: Path, output_dir: Path):
         "/usr/bin/ffmpeg",
     ]
 
-    # MuseTalk's standard configuration expects video/audio paths.
-    # Create an isolated config for this job.
     import yaml
 
     job_config = {
@@ -275,9 +273,6 @@ def handler(job):
             work_dir / "speech.wav",
         )
 
-        # We deliberately validate model availability at job time.
-        # The actual weights should live in RunPod model/network storage,
-        # not inside Git.
         validate_model_files()
 
         output_video = run_musetalk(
@@ -304,8 +299,9 @@ def handler(job):
         )
 
 
-runpod.serverless.start(
-    {
-        "handler": handler,
-    }
-)
+if __name__ == "__main__":
+    runpod.serverless.start(
+        {
+            "handler": handler,
+        }
+    )
